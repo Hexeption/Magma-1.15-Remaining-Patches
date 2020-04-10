@@ -785,33 +785,6 @@
      }
  
      @Override
-@@ -1206,9 +1574,16 @@
-         return this.advancementDataPlayer;
-     }
- 
-+    // CraftBukkit start
-     public void a(WorldServer worldserver, double d0, double d1, double d2, float f, float f1) {
-+        this.a(worldserver, d0, d1, d2, f, f1, org.bukkit.event.player.PlayerTeleportEvent.TeleportCause.UNKNOWN);
-+    }
-+
-+    public void a(WorldServer worldserver, double d0, double d1, double d2, float f, float f1, org.bukkit.event.player.PlayerTeleportEvent.TeleportCause cause) {
-+        // CraftBukkit end
-         this.setSpectatorTarget(this);
-         this.stopRiding();
-+        /* CraftBukkit start - replace with bukkit handling for multi-world
-         if (worldserver == this.world) {
-             this.playerConnection.a(d0, d1, d2, f, f1);
-         } else {
-@@ -1231,6 +1606,9 @@
-             this.server.getPlayerList().a(this, worldserver);
-             this.server.getPlayerList().updateClient(this);
-         }
-+        */
-+        this.getBukkitEntity().teleport(new Location(worldserver.getWorld(), d0, d1, d2, f, f1), cause);
-+        // CraftBukkit end
- 
-     }
- 
 @@ -1285,4 +1663,144 @@
              return entityitem;
          }
