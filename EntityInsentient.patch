@@ -42,7 +42,7 @@
          }
  
 +        // CraftBukkit start - default persistance to type's persistance value
-+        this.persistent = !isTypeNotPersistent(0);
++        this.persistent = !canDespawn(0);
 +        // CraftBukkit end
      }
  
@@ -162,13 +162,13 @@
              if (entityhuman != null) {
                  double d0 = entityhuman.h(this);
  
--                if (d0 > 16384.0D && this.isTypeNotPersistent(d0)) {
-+                if (d0 > 16384.0D) { // CraftBukkit - remove isTypeNotPersistent() check
+-                if (d0 > 16384.0D && this.canDespawn(d0)) {
++                if (d0 > 16384.0D) { // CraftBukkit - remove canDespawn() check
                      this.die();
                  }
  
--                if (this.ticksFarFromPlayer > 600 && this.random.nextInt(800) == 0 && d0 > 1024.0D && this.isTypeNotPersistent(d0)) {
-+                if (this.ticksFarFromPlayer > 600 && this.random.nextInt(800) == 0 && d0 > 1024.0D) { // CraftBukkit - remove isTypeNotPersistent() check
+-                if (this.ticksFarFromPlayer > 600 && this.random.nextInt(800) == 0 && d0 > 1024.0D && this.canDespawn(d0)) {
++                if (this.ticksFarFromPlayer > 600 && this.random.nextInt(800) == 0 && d0 > 1024.0D) { // CraftBukkit - remove canDespawn() check
                      this.die();
                  } else if (d0 < 1024.0D) {
                      this.ticksFarFromPlayer = 0;

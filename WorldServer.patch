@@ -347,7 +347,7 @@
  
 -                if (entityinsentient.isPersistent() || entityinsentient.I()) {
 +                // CraftBukkit - Split out persistent check, don't apply it to special persistent mobs
-+                if (entityinsentient.isTypeNotPersistent(0) && entityinsentient.isPersistent()) {
++                if (entityinsentient.canDespawn(0) && entityinsentient.isPersistent()) {
                      continue;
                  }
              }

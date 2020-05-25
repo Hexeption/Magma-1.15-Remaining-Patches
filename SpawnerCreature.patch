@@ -13,7 +13,7 @@
      private static final Logger LOGGER = LogManager.getLogger();
 @@ -88,9 +92,12 @@
                                                          entityinsentient.setPositionRotation((double) f, (double) k, (double) f1, worldserver.random.nextFloat() * 360.0F, 0.0F);
-                                                         if ((d0 <= 16384.0D || !entityinsentient.isTypeNotPersistent(d0)) && entityinsentient.a((GeneratorAccess) worldserver, EnumMobSpawn.NATURAL) && entityinsentient.a((IWorldReader) worldserver)) {
+                                                         if ((d0 <= 16384.0D || !entityinsentient.canDespawn(d0)) && entityinsentient.a((GeneratorAccess) worldserver, EnumMobSpawn.NATURAL) && entityinsentient.a((IWorldReader) worldserver)) {
                                                              groupdataentity = entityinsentient.prepare(worldserver, worldserver.getDamageScaler(new BlockPosition(entityinsentient)), EnumMobSpawn.NATURAL, groupdataentity, (NBTTagCompound) null);
 -                                                            ++i;
 -                                                            ++i2;
