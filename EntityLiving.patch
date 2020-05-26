@@ -283,60 +283,6 @@
 @@ -744,20 +900,55 @@
  
      }
- 
-+    // CraftBukkit start - Delegate so we can handle providing a reason for health being regained
-     public void heal(float f) {
-+        heal(f, EntityRegainHealthEvent.RegainReason.CUSTOM);
-+    }
-+
-+    public void heal(float f, EntityRegainHealthEvent.RegainReason regainReason) {
-         float f1 = this.getHealth();
- 
-         if (f1 > 0.0F) {
--            this.setHealth(f1 + f);
-+            EntityRegainHealthEvent event = new EntityRegainHealthEvent(this.getBukkitEntity(), f, regainReason);
-+            // Suppress during worldgen
-+            if (this.valid) {
-+                this.world.getServer().getPluginManager().callEvent(event);
-+            }
-+
-+            if (!event.isCancelled()) {
-+                this.setHealth((float) (this.getHealth() + event.getAmount()));
-+            }
-+            // CraftBukkit end
-         }
- 
-     }
- 
-     public float getHealth() {
-+        // CraftBukkit start - Use unscaled health
-+        if (this instanceof EntityPlayer) {
-+            return (float) ((EntityPlayer) this).getBukkitEntity().getHealth();
-+        }
-+        // CraftBukkit end
-         return (Float) this.datawatcher.get(EntityLiving.HEALTH);
-     }
- 
-     public void setHealth(float f) {
-+        // CraftBukkit start - Handle scaled health
-+        if (this instanceof EntityPlayer) {
-+            org.bukkit.craftbukkit.entity.CraftPlayer player = ((EntityPlayer) this).getBukkitEntity();
-+            // Squeeze
-+            if (f < 0.0F) {
-+                player.setRealHealth(0.0D);
-+            } else if (f > player.getMaxHealth()) {
-+                player.setRealHealth(player.getMaxHealth());
-+            } else {
-+                player.setRealHealth(f);
-+            }
-+
-+            player.updateScaledHealth(false);
-+            return;
-+        }
-+        // CraftBukkit end
-         this.datawatcher.set(EntityLiving.HEALTH, MathHelper.a(f, 0.0F, this.getMaxHealth()));
-     }
- 
 @@ -767,7 +958,7 @@
              return false;
          } else if (this.world.isClientSide) {
