@@ -171,15 +171,6 @@
      }
  
      boolean isOutsideOfRange(ChunkCoordIntPair chunkcoordintpair) {
-@@ -1114,7 +1150,7 @@
-         public final Set<EntityPlayer> trackedPlayers = Sets.newHashSet();
- 
-         public EntityTracker(Entity entity, int i, int j, boolean flag) {
--            this.trackerEntry = new EntityTrackerEntry(PlayerChunkMap.this.world, entity, j, flag, this::broadcast);
-+            this.trackerEntry = new EntityTrackerEntry(PlayerChunkMap.this.world, entity, j, flag, this::broadcast, trackedPlayers); // CraftBukkit
-             this.tracker = entity;
-             this.trackingDistance = i;
-             this.e = SectionPosition.a(entity);
 @@ -1167,7 +1203,7 @@
  
          public void updatePlayer(EntityPlayer entityplayer) {
