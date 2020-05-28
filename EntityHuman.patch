@@ -1,16 +1,3 @@
-@@ -27,10 +41,10 @@
-     protected static final DataWatcherObject<NBTTagCompound> bt = DataWatcher.a(EntityHuman.class, DataWatcherRegistry.p);
-     private long e;
-     public final PlayerInventory inventory = new PlayerInventory(this);
--    protected InventoryEnderChest enderChest = new InventoryEnderChest();
-+    protected InventoryEnderChest enderChest = new InventoryEnderChest(this); // CraftBukkit - add "this" to constructor
-     public final ContainerPlayer defaultContainer;
-     public Container activeContainer;
--    protected FoodMetaData foodData = new FoodMetaData();
-+    protected FoodMetaData foodData = new FoodMetaData(this); // CraftBukkit - add "this" to constructor
-     protected int bz;
-     public float bA;
-     public float bB;
 @@ -1139,15 +1269,15 @@
          return this.bT;
      }
